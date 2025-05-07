@@ -1,0 +1,13 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: S3 bucket for storing build artifacts
+
+Resources:
+  ProjectBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub "webapp-artifacts-${AWS::AccountId}"
+
+Outputs:
+  BucketName:
+    Value: !Ref ProjectBucket
+
