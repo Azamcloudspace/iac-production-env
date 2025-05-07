@@ -26,8 +26,6 @@ Resources:
         KeyName: !Ref KeyName
         InstanceProfileName: !GetAtt IAMStack.Outputs.InstanceProfileName
 
-        Resources:
-
   S3Stack:
     Type: AWS::CloudFormation::Stack
     Properties:
