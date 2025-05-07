@@ -1,0 +1,27 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Main stack that includes all nested stacks
+
+Parameters:
+  KeyName:
+    Type: AWS::EC2::KeyPair::KeyName
+
+Resources:
+  VPCStack:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: https://<your-bucket>.s3.amazonaws.com/vpc.yml
+
+  IAMStack:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: https://<your-bucket>.s3.amazonaws.com/iam.yml
+
+  EC2Stack:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: https://<your-bucket>.s3.amazonaws.com/ec2.yml
+      Parameters:
+        SubnetIds: !GetAtt VPCStack.Outputs.SubnetIds
+        VpcId: !GetAtt VPCStack.Outputs.VpcId
+        KeyName: !Ref KeyName
+        InstanceProfileName: !GetAtt IAMStack.Outputs.InstanceProfileName
