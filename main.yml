@@ -25,3 +25,22 @@ Resources:
         VpcId: !GetAtt VPCStack.Outputs.VpcId
         KeyName: !Ref KeyName
         InstanceProfileName: !GetAtt IAMStack.Outputs.InstanceProfileName
+
+        Resources:
+
+  S3Stack:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: https://s3.amazonaws.com/your-bucket-name/s3.yml
+      Parameters:
+        # Add parameters if required by s3.yml
+
+  RDSStack:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: https://s3.amazonaws.com/your-bucket-name/rds.yml
+      Parameters:
+        DBInstanceIdentifier: mydbinstance
+        DBName: mydatabase
+        MasterUsername: admin
+        MasterUserPassword: mySecurePassword123
